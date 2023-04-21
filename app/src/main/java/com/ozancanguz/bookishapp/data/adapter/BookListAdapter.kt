@@ -35,10 +35,10 @@ class BookListAdapter : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val currentBook = bookList[position]
         holder.binding.bookTitle.text = currentBook.title
-        holder.binding.bookAuthor.text = currentBook.yazar
-        holder.binding.bookPrice.text = currentBook.fiyat
-        holder.binding.bookDiscount.text = currentBook.indirim
-        holder.binding.bookPublisher.text = currentBook.yayın
+        holder.binding.bookAuthor.text = "Author: "+currentBook.yazar
+        holder.binding.bookPrice.text ="Price: " +currentBook.fiyat
+        holder.binding.bookDiscount.text = "Discount: " +currentBook.indirim
+        holder.binding.bookPublisher.text = "Publisher: " +currentBook.yayın
         holder.binding.bookImage.loadImage(currentBook.image)
 
 
