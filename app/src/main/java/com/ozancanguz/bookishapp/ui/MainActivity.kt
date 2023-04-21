@@ -1,4 +1,4 @@
-package com.ozancanguz.bookishapp
+package com.ozancanguz.bookishapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
