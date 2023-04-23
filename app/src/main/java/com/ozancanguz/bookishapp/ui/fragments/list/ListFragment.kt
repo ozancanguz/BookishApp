@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ozancanguz.bookishapp.data.adapter.BookListAdapter
 import com.ozancanguz.bookishapp.databinding.FragmentListBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ListFragment : Fragment() {
@@ -48,15 +50,23 @@ class ListFragment : Fragment() {
     }
 
     private fun observeLiveData() {
+        lifecycleScope.launch {
+            listViewModel.bookList.collect {
+                if (it != null) {
+                    bookListAdapter.setData(it)
+                }
+            }
+        }
         listViewModel.getBooks()
-        listViewModel.bookList.observe(viewLifecycleOwner, Observer {
-            bookListAdapter.setData(it)
-        })
     }
-
     private fun setupRv() {
         binding.recyclerView.layoutManager=LinearLayoutManager(requireContext())
         binding.recyclerView.adapter=bookListAdapter
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
